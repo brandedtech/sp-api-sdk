@@ -478,7 +478,7 @@ type OrderItem struct {
 	IossNumber *string `json:"IossNumber,omitempty"`
 
 	// When true, the item is a gift.
-	IsGift *bool `json:"IsGift,omitempty"`
+	IsGift *string `json:"IsGift,omitempty"`
 
 	// When true, transparency codes are required.
 	IsTransparency *bool `json:"IsTransparency,omitempty"`
