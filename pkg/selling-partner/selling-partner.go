@@ -55,14 +55,24 @@ func NewSellingPartner(cfg *Config) (*SellingPartner, error) {
 	return sp, nil
 }
 
-func (s *SellingPartner) RefreshToken() error {
+func (s *SellingPartner) RefreshToken(scope string) error {
+	var reqBody []byte
 
-	reqBody, _ := json.Marshal(map[string]string{
-		"grant_type":    "refresh_token",
-		"refresh_token": s.cfg.RefreshToken,
-		"client_id":     s.cfg.ClientID,
-		"client_secret": s.cfg.ClientSecret,
-	})
+	if scope != "" {
+		reqBody, _ = json.Marshal(map[string]string{
+			"grant_type":    "client_credentials",
+			"client_id":     s.cfg.ClientID,
+			"client_secret": s.cfg.ClientSecret,
+			"scope":         scope,
+		})
+	} else {
+		reqBody, _ = json.Marshal(map[string]string{
+			"grant_type":    "refresh_token",
+			"refresh_token": s.cfg.RefreshToken,
+			"client_id":     s.cfg.ClientID,
+			"client_secret": s.cfg.ClientSecret,
+		})
+	}
 
 	resp, err := http.Post(
 		"https://api.amazon.com/auth/o2/token",
@@ -110,7 +120,22 @@ func (s *SellingPartner) AuthorizeRequest(r *http.Request) error {
 	if s.accessToken == "" ||
 		s.accessTokenExpiry.IsZero() ||
 		s.accessTokenExpiry.Round(0).Add(-expiryDelta).Before(time.Now().UTC()) {
-		if err := s.RefreshToken(); err != nil {
+		if err := s.RefreshToken(""); err != nil {
+			return fmt.Errorf("cannot refresh token. Error: %s", err.Error())
+		}
+	}
+
+	r.Header.Add("X-Amz-Access-Token", s.accessToken)
+
+	return nil
+}
+
+func (s *SellingPartner) AuthorizeRequestWithScope(r *http.Request, scope string) error {
+
+	if s.accessToken == "" ||
+		s.accessTokenExpiry.IsZero() ||
+		s.accessTokenExpiry.Round(0).Add(-expiryDelta).Before(time.Now().UTC()) {
+		if err := s.RefreshToken(scope); err != nil {
 			return fmt.Errorf("cannot refresh token. Error: %s", err.Error())
 		}
 	}
