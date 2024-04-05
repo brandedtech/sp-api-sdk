@@ -197,14 +197,23 @@ type NotificationType string
 
 // List of NotificationType
 const (
+	NotificationType_ACCOUNT_STATUS_CHANGED       NotificationType = "ACCOUNT_STATUS_CHANGED"
 	NotificationType_ANY_OFFER_CHANGED            NotificationType = "ANY_OFFER_CHANGED"
 	NotificationType_B2B_ANY_OFFER_CHANGED        NotificationType = "B2B_ANY_OFFER_CHANGED"
 	NotificationType_BRANDED_ITEM_CONTENT_CHANGE  NotificationType = "BRANDED_ITEM_CONTENT_CHANGE"
+	NotificationType_DETAIL_PAGE_TRAFFIC_EVENT    NotificationType = "DETAIL_PAGE_TRAFFIC_EVENT"
+	NotificationType_FBA_INVENTORY_AVAILABILITY_CHANGES NotificationType = "FBA_INVENTORY_AVAILABILITY_CHANGES"
 	NotificationType_FBA_OUTBOUND_SHIPMENT_STATUS NotificationType = "FBA_OUTBOUND_SHIPMENT_STATUS"
 	NotificationType_FEED_PROCESSING_FINISHED     NotificationType = "FEED_PROCESSING_FINISHED"
 	NotificationType_FEE_PROMOTION                NotificationType = "FEE_PROMOTION"
 	NotificationType_FULFILLMENT_ORDER_STATUS     NotificationType = "FULFILLMENT_ORDER_STATUS"
+	NotificationType_ITEM_INVENTORY_EVENT_CHANGE  NotificationType = "ITEM_INVENTORY_EVENT_CHANGE"
+	NotificationType_ITEM_SALES_EVENT_CHANGE      NotificationType = "ITEM_SALES_EVENT_CHANGE"
 	NotificationType_ITEM_PRODUCT_TYPE_CHANGE     NotificationType = "ITEM_PRODUCT_TYPE_CHANGE"
+	NotificationType_LISTINGS_ITEM_STATUS_CHANGE  NotificationType = "LISTINGS_ITEM_STATUS_CHANGE"
+	NotificationType_LISTINGS_ITEM_MFN_QUANTITY_CHANGE NotificationType = "LISTINGS_ITEM_MFN_QUANTITY_CHANGE"
+	NotificationType_PRICING_HEALTH NotificationType = "PRICING_HEALTH"
+	NotificationType_PRODUCT_TYPE_DEFINITIONS_CHANGE NotificationType = "PRODUCT_TYPE_DEFINITIONS_CHANGE"
 	NotificationType_MFN_ORDER_STATUS_CHANGE      NotificationType = "MFN_ORDER_STATUS_CHANGE"
 	NotificationType_REPORT_PROCESSING_FINISHED   NotificationType = "REPORT_PROCESSING_FINISHED"
 )
